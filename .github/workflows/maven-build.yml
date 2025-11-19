@@ -1,0 +1,39 @@
+name: Java CI with Maven
+on:
+push:
+
+branches: [ &quot;master&quot; ]
+jobs:
+maven:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout Repository
+uses: actions/checkout@v4
+- name: Set up JDK 17
+uses: actions/setup-java@v4
+with:
+java-version: &#39;17&#39;
+distribution: &#39;temurin&#39;
+- name: Build with Maven
+run: mvn compile
+- name: Run the App
+run: java -cp target/classes com.example.HelloWorld
+Step 6: Verify workflow run
+1. Open your repo on GitHub → Actions tab.
+2. Click the latest run → open checkout and maven job logs.
+3. Confirm steps:
+○ “Checkout Repository” succeeded
+○ “Upload Source Code as Artifact” succeeded
+○ “Set up JDK 17” succeeded
+○ “Build with Maven” shows BUILD SUCCESS
+
+Step 8: Modify code and confirm auto-triggered CI
+Edit HelloWorld.java:
+package com.example;
+public class HelloWorld {
+public static void main(String[] args) {
+System.out.println(&quot;Hello, DevOps CI/CD using GitHub Actions!&quot;);
+System.out.println(&quot;Change #1: Verifying automatic workflow trigger on push.&quot;);
+}
+
+}
